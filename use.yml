@@ -1,0 +1,6 @@
+  Failure
+Validation in Global:
+! ERROR Failed check for Namespace/SPINNAKER_NAMESPACE in null
+Error from server (Forbidden): namespaces "SPINNAKER_NAMESPACE" is forbidden:
+  User "system:serviceaccount:oes:oes-spinnaker-halyard" cannot get resource
+  "namespaces" in API group "" in the namespace "SPINNAKER_NAMESPACE"
