@@ -1,6 +1,9 @@
-  ----     ------                  ----  ----               -------
-  Normal   Scheduled               67s   default-scheduler  Successfully assigned ssd/ssd-minio-make-bucket-job-5x54n to ip-10-11-72-47.ec2.internal
-  Warning  FailedCreatePodSandBox  64s   kubelet            Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "1f2225c002b0299c8ab54298cb356b96a6ab0556990c64fe87c0d10d9ad0f6ad": plugin type="vpc-bridge" name="vpc" failed (add): failed to parse Kubernetes args: failed to get pod IP address ssd-minio-make-bucket-job-5x54n: error executing k8s connector: error executing connector binary: exit status 1 with execution error: pod ssd-minio-make-bucket-job-5x54n does not have label vpc.amazonaws.com/PrivateIPv4Address
-  Warning  FailedCreatePodSandBox  46s   kubelet            Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "08cec95937e7629b5d419cf670e362e14a85e880bcf8a20c3b606feae33162b8": plugin type="vpc-bridge" name="vpc" failed (add): failed to parse Kubernetes args: failed to get pod IP address ssd-minio-make-bucket-job-5x54n: error executing k8s connector: error executing connector binary: exit status 1 with execution error: pod ssd-minio-make-bucket-job-5x54n does not have label vpc.amazonaws.com/PrivateIPv4Address
-  Warning  FailedCreatePodSandBox  28s   kubelet            Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "c8bc08b198c589037064c88d7bcc38af83e91b4f35c1d43e88b4821b1d0dfc12": plugin type="vpc-bridge" name="vpc" failed (add): failed to parse Kubernetes args: failed to get pod IP address ssd-minio-make-bucket-job-5x54n: error executing k8s connector: error executing connector binary: exit status 1 with execution error: pod ssd-minio-make-bucket-job-5x54n does not have label vpc.amazonaws.com/PrivateIPv4Address
-  Warning  FailedCreatePodSandBox  13s   kubelet            Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox "96610c13ef08a6bc92d19084012d5ee273d0672d96750d0c3a640b5f63812bf8": plugin type="vpc-bridge" name="vpc" failed (add): failed to parse Kubernetes args: failed to get pod IP address ssd-minio-make-bucket-job-5x54n: error executing k8s connector: error executing connector binary: exit status 1 with execution error: pod ssd-minio-make-bucket-job-5x54n does not have label vpc.amazonaws.com/PrivateIPv4Addres
+ubuntu@ip-10-7-96-183:~/yvijay/oesupgrade$ k logs -f ssd-minio-make-bucket-job-tscfx
+Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens.
+Connecting to Minio server: http://ssd-minio:9000
+Added `myminio` successfully.
+Creating bucket 'ssd-temporal'
+Bucket created successfully `myminio/ssd-temporal`.
+Bucket 'ssd-temporal' versioning unchanged.
+Setting policy of bucket 'ssd-temporal' to 'none'.
+Access permission for `myminio/ssd-temporal` is set to `none`
