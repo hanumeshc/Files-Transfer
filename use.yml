@@ -1,1 +1,23 @@
 kubectl get pods --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
+
+NAME                                        IMAGE
+dgraph-0                                    quay.io/opsmxpublic/ratel:v21.12.0,quay.io/opsmxpublic/dgraph:v23.1.0,quay.io/opsmxpublic/dgraph:v23.1.0
+rabbitmq-6d9786c5d7-cj592                   quay.io/opsmxpublic/rabbitmq:3-management
+setup-job-r6vp7                             quay.io/opsmxpublic/opsmx-custom-binaries:kubectl-spin-cli-git-bash-jq-yq
+ssd-db-0                                    quay.io/opsmxpublic/ssd-db:2024-05-00
+ssd-gate-64799fc6bf-5x4sn                   quay.io/opsmxpublic/ssdgate:2024-05-00
+ssd-minio-5445b65ff-n6pxv                   quay.io/opsmxpublic/minio:RELEASE.2020-12-03T05-49-24Z
+ssd-minio-make-bucket-job-tscfx             quay.io/opsmxpublic/minio-mc:RELEASE.2020-11-25T23-04-07Z
+ssd-opa-5d8dd69679-cggpz                    quay.io/opsmxpublic/ssd-opa:2024-05-01
+ssd-redis-master-0                          quay.io/opsmxpublic/bitnami-redis:2024-05-00
+ssd-temporal-admintools-86487bdbb7-7htsg    quay.io/opsmxpublic/temporal-admin-tools:1.20.3
+ssd-temporal-frontend-5989f77b6f-rwmmh      quay.io/opsmxpublic/temporal-server:1.20.3
+ssd-temporal-history-54f5785b96-6hswg       quay.io/opsmxpublic/temporal-server:1.20.3
+ssd-temporal-matching-7cb6645f9b-qsxdk      quay.io/opsmxpublic/temporal-server:1.20.3
+ssd-temporal-web-5ff5587bc5-ndhkl           quay.io/opsmxpublic/temporal-ui:2.9.0
+ssd-temporal-worker-87fd9d74f-fb6qt         quay.io/opsmxpublic/temporal-server:1.20.3
+ssd-ui-544fcc984b-c4vqb                     quay.io/opsmxpublic/ssd-ui:2024-05-02
+supplychain-api-5946fb6949-qrpgd            quay.io/opsmxpublic/supplychain-api:2024-05-01
+supplychain-preprocessor-5745749c4c-5bq4m   quay.io/opsmxpublic/supplychain-preprocessor:2024-05-00
+token-machine-6bbb84fdf6-jf9j9              quay.io/opsmxpublic/token-machine:2024-04-00
+tool-chain-6bc78b57c4-f5262                 quay.io/opsmxpublic/tool-chain:2024-05-00
