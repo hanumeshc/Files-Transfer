@@ -1,3 +1,5 @@
+quay.io/opsmxpublic/docker-swarm:8a93f07-401
+
 https://spinnaker-sbx.wureachnonprod.awswuintranet.net/#/applications/appdemosamples/executions?pipeline=addManualJudgementStage,test-1
 
 kubectl get pods --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
