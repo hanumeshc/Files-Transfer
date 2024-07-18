@@ -1,3 +1,5 @@
+https://spinnaker-sbx.wureachnonprod.awswuintranet.net/#/applications/appdemosamples/executions?pipeline=addManualJudgementStage,test-1
+
 kubectl get pods --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
 
 NAME                                        IMAGE
