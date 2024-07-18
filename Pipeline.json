@@ -1,0 +1,171 @@
+{
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "yugandhar@opsmx.io",
+  "limitConcurrent": true,
+  "parameterConfig": [
+    {
+      "default": "westernunionapp",
+      "description": "",
+      "hasOptions": false,
+      "label": "",
+      "name": "appname",
+      "options": [
+        {
+          "value": ""
+        }
+      ],
+      "pinned": false,
+      "required": false
+    },
+    {
+      "default": "without",
+      "description": "",
+      "hasOptions": false,
+      "label": "",
+      "name": "pipename",
+      "options": [
+        {
+          "value": ""
+        }
+      ],
+      "pinned": false,
+      "required": false
+    }
+  ],
+  "schema": "1",
+  "spelEvaluator": "v4",
+  "stages": [
+    {
+      "account": "default",
+      "alias": "runJob",
+      "application": "westernunionapp",
+      "cloudProvider": "kubernetes",
+      "credentials": "default",
+      "manifest": {
+        "apiVersion": "batch/v1",
+        "kind": "Job",
+        "metadata": {
+          "annotations": {
+            "artifact.spinnaker.io/version": "false"
+          },
+          "generateName": "addmjstagejob-",
+          "labels": {
+            "app": "maven"
+          },
+          "namespace": "pmalpha"
+        },
+        "spec": {
+          "backoffLimit": 0,
+          "template": {
+            "spec": {
+              "containers": [
+                {
+                  "command": [
+                    "bash",
+                    "/tmp/initscript/stage.sh"
+                  ],
+                  "env": [
+                    {
+                      "name": "appname",
+                      "value": "${parameters.appname}"
+                    },
+                    {
+                      "name": "pipename",
+                      "value": "${parameters.pipename}"
+                    }
+                  ],
+                  "image": "quay.io/opsmxpublic/opsmx-custom-binaries:kubectl-spin-cli-git-bash-jq-yq-argocd",
+                  "name": "createapppipe",
+                  "volumeMounts": [
+                    {
+                      "mountPath": "/tmp/initscript/",
+                      "name": "initscript"
+                    },
+                    {
+                      "mountPath": "/root/.spin/",
+                      "name": "spinconfig"
+                    }
+                  ]
+                }
+              ],
+              "restartPolicy": "Never",
+              "volumes": [
+                {
+                  "configMap": {
+                    "defaultMode": 420,
+                    "name": "addmjstage"
+                  },
+                  "name": "initscript"
+                },
+                {
+                  "name": "spinconfig",
+                  "secret": {
+                    "secretName": "spincliconfig"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "name": "Run Job (Manifest)",
+      "refId": "1",
+      "requisiteStageRefIds": [
+        "3"
+      ],
+      "source": "text",
+      "type": "runJobManifest"
+    },
+    {
+      "account": "default",
+      "cloudProvider": "kubernetes",
+      "manifests": [
+        {
+          "apiVersion": "v1",
+          "data": {
+            "stage.sh": "#!/bin/bash\n\nfor app in $appname\ndo\n    echo $pipename > $app_pipe.list\n    for pipe in $(cat $app_pipe.list)\n    do\n        echo $pipe\n\n        # Get the pipeline JSON into a file\n        spin pi get -n $pipe -a $app > src.json\n\n        # Get the final stage number in the current pipeline\n        last_stg_no=$(cat src.json | jq -r '.stages[].refId' | sort -nr | head -n 1)\n\n        # RefId of the new stage to be created\n        refid=$((last_stg_no + 1))\n\n        # Get the dependent stage number in the current deploy stage\n        deploy_stg_no=$(cat src.json | jq -r '.stages[] | select(.type == \"deploy\") | .requisiteStageRefIds')\n\n        # Check if deploy_stg_no is null or empty\n        if [[ -z \"$deploy_stg_no\" ]]; then\n            echo \"No Deploy stage in pipeline $pipe in application $app. Skipping to next pipeline.\"\n            echo \" \"\n            continue\n        fi\n\n        # Initialize a counter for empty arrays\n        empty_array_count=0\n\n        # Process each requisiteStageRefIds\n        empty_array_count=$(echo \"$deploy_stg_no\" | grep -o \"\\\\[\" | wc -l)\n\n        # Check if there is more than one empty array\n        if (( empty_array_count > 1 )); then\n            echo \"Skipping $pipe due to more than one empty array in requisiteStageRefIds.\"\n            echo \" \"\n            continue\n        fi\n\n        NEW_STAGE=$(cat <<EOF\n        {\n            \"failPipeline\": true,\n            \"judgmentInputs\": [],\n            \"name\": \"Manual Judgment\",\n            \"notifications\": [],\n            \"refId\": \"$refid\",\n            \"requisiteStageRefIds\": $deploy_stg_no,\n            \"type\": \"manualJudgment\"\n        }\nEOF\n        )\n\n        cat src.json | jq \".stages += [$NEW_STAGE]\" > dest.json\n\n        jq --argjson refid \"$refid\" '\n            .stages |= map(\n                if .type == \"deploy\" then\n                    .requisiteStageRefIds |= [\"'$refid'\"]\n                else\n                    .\n                end\n            )\n        ' dest.json > modified_dest.json\n\n        mv modified_dest.json dest.json\n\n        spin pi save -f dest.json\n        \n        #cat dest.json\n\n    done # all pipelines loop ends here\n\ndone  # all applications loop ends here\n\n"
+          },
+          "kind": "ConfigMap",
+          "metadata": {
+            "annotations": {
+              "strategy.spinnaker.io/versioned": "false"
+            },
+            "name": "addmjstage"
+          }
+        },
+        {
+          "apiVersion": "v1",
+          "kind": "Secret",
+          "metadata": {
+            "annotations": {
+              "artifact.spinnaker.io/version": "false"
+            },
+            "name": "spincliconfig"
+          },
+          "stringData": {
+            "config": "gate:\n  endpoint: https://isd.alpha.autopilot.opsmx.com/gate\nauth:\n  enabled: true\n  basic:\n     username: yugandhar@opsmx.io \n     password: Opsmx@123\n"
+          }
+        }
+      ],
+      "moniker": {
+        "app": "westernunionapp"
+      },
+      "name": "Deploy (new)",
+      "namespaceOverride": "pmalpha",
+      "refId": "3",
+      "requisiteStageRefIds": [],
+      "skipExpressionEvaluation": false,
+      "source": "text",
+      "trafficManagement": {
+        "enabled": false,
+        "options": {
+          "enableTraffic": false,
+          "services": []
+        }
+      },
+      "type": "deployManifest"
+    }
+  ],
+  "triggers": [],
+  "updateTs": "1719574465000"
+}
