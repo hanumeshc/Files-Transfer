@@ -24,7 +24,7 @@ tool-chain-6bc78b57c4-f5262                 quay.io/opsmxpublic/tool-chain:2024-
 
 
 
-{
+curl -d '{
   "queries": [
     {
       "package": {
@@ -42,4 +42,4 @@ tool-chain-6bc78b57c4-f5262                 quay.io/opsmxpublic/tool-chain:2024-
       "version": "2.4.1"
     }
   ]
-}
+}' -X POST https://api.osv.dev/v1/querybatch
