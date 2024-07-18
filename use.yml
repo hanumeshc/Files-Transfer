@@ -21,3 +21,25 @@ supplychain-api-5946fb6949-qrpgd            quay.io/opsmxpublic/supplychain-api:
 supplychain-preprocessor-5745749c4c-5bq4m   quay.io/opsmxpublic/supplychain-preprocessor:2024-05-00
 token-machine-6bbb84fdf6-jf9j9              quay.io/opsmxpublic/token-machine:2024-04-00
 tool-chain-6bc78b57c4-f5262                 quay.io/opsmxpublic/tool-chain:2024-05-00
+
+
+
+{
+  "queries": [
+    {
+      "package": {
+        "purl": "pkg:pypi/mlflow@0.4.0"
+      }
+    },
+    {
+      "commit": "6879efc2c1596d11a6a6ad296f80063b558d5e0f"
+    },
+    {
+      "package": {
+        "ecosystem": "PyPI",
+        "name": "jinja2"
+      },
+      "version": "2.4.1"
+    }
+  ]
+}
