@@ -43,3 +43,128 @@ curl -d '{
     }
   ]
 }' -X POST https://api.osv.dev/v1/querybatch
+
+
+
+
+
+{
+  "appConfig": {},
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "323149@westernunion.com",
+  "limitConcurrent": true,
+  "schema": "1",
+  "spelEvaluator": "v4",
+  "stages": [
+    {
+      "clusters": [
+        {
+          "account": "ecswureachnonprod",
+          "application": "appdemosamples",
+          "availabilityZones": {
+            "us-east-1": [
+              "us-east-1a",
+              "us-east-1b",
+              "us-east-1c",
+              "us-east-1d",
+              "us-east-1e",
+              "us-east-1f"
+            ]
+          },
+          "capacity": {
+            "desired": 1,
+            "max": 1,
+            "min": 1
+          },
+          "capacityProviderStrategy": [],
+          "cloudProvider": "ecs",
+          "computeUnits": 512,
+          "containerMappings": [
+            {
+              "containerName": "WANV-SAN-01-0-ecs-container-websocket-fg-dev-webdemo-v1",
+              "imageDescription": {
+                "fromContext": true,
+                "imageId": "jfrog-sandbox.wureachnonprod.awswuintranet.net/sample-docker-prod/nginx:latest",
+                "imageLabelOrSha": "jfrog-sandbox.wureachnonprod.awswuintranet.net/sample-docker-prod/nginx:latest",
+                "stageId": "2"
+              }
+            }
+          ],
+          "copySourceScalingPoliciesAndActions": true,
+          "dockerImageCredentialsSecret": "jfrogSecret",
+          "dockerLabels": {},
+          "ecsClusterName": "WANV-SAN-01-websocket-fg-dev",
+          "environmentVariables": {},
+          "healthCheckGracePeriodSeconds": 0,
+          "healthCheckType": "EC2",
+          "iamRole": "None (No IAM role)",
+          "imageDescription": {
+            "fromContext": true,
+            "imageId": "jfrog-sandbox.wureachnonprod.awswuintranet.net/sample-docker-prod/nginx:latest",
+            "imageLabelOrSha": "jfrog-sandbox.wureachnonprod.awswuintranet.net/sample-docker-prod/nginx:latest",
+            "stageId": "23"
+          },
+          "launchType": "FARGATE",
+          "loadBalancers": [],
+          "moniker": {
+            "app": "appdemosamples"
+          },
+          "networkMode": "awsvpc",
+          "placementConstraints": [],
+          "placementStrategyName": "",
+          "placementStrategySequence": [],
+          "preferSourceCapacity": true,
+          "provider": "ecs",
+          "reservedMemory": 1024,
+          "securityGroupNames": [
+            "default"
+          ],
+          "serviceDiscoveryAssociations": [],
+          "strategy": "highlander",
+          "subnetType": "",
+          "subnetTypes": [
+            "fargate-spinnaker-nv-dev"
+          ],
+          "tags": {},
+          "targetGroup": "",
+          "targetGroupMappings": [
+            {
+              "containerName": "WANV-SAN-01-0-ecs-container-websocket-fg-dev-webdemo-v1",
+              "containerPort": 8080,
+              "targetGroup": "WANV-SAN-0-ecs-tg-webdemo"
+            }
+          ],
+          "taskDefinitionArtifact": {
+            "artifact": {
+              "artifactAccount": "embedded-artifact",
+              "id": "35ee3d83-16a0-43c9-b9f7-65a6cc7b4488",
+              "name": "tddata",
+              "reference": "ewogICAgImNvbnRhaW5lckRlZmluaXRpb25zIjogWwogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAiV0FOVi1TQU4tMDEtMC1lY3MtY29udGFpbmVyLXdlYnNvY2tldC1mZy1kZXYtd2ViZGVtby12MSIsCiAgICAgICAgICAgICJpbWFnZSI6ICJhcnRpZmFjdG9yeS53dXJlYWNocHJvZC5hd3N3dWludHJhbmV0Lm5ldC9zYW1wbGUtZG9ja2VyLWRldi1sb2NhbC93ZWJzb2NrZXQtZGVtby93ZWJzb2NrZXQtZGVtbzoyMzAxMTctMTEwNzEyLTljMjhmNmEiLAogICAgICAgICAgICAiY3B1IjogNTEyLAogICAgICAgICAgICAibWVtb3J5IjogMTAyNCwKICAgICAgICAgICAgInBvcnRNYXBwaW5ncyI6IFsKICAgICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICAgICAiY29udGFpbmVyUG9ydCI6IDgwODAsCiAgICAgICAgICAgICAgICAgICAgImhvc3RQb3J0IjogODA4MCwKICAgICAgICAgICAgICAgICAgICAicHJvdG9jb2wiOiAidGNwIgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICBdLAogICAgICAgICAgICAiZXNzZW50aWFsIjogdHJ1ZSwKICAgICAgICAgICAgImVudmlyb25tZW50IjogWwogICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgICJuYW1lIjogIkNPTkZJR1NFUlZFUlVSSSIsCiAgICAgICAgICAgICAgICAgICAgInZhbHVlIjogImh0dHBzOi8vc3ZjY29uZmlnLnVzZWFzdDEuMXBsYXRmb3Jtbm9ucHJvZC5hd3N3dWludHJhbmV0Lm5ldDo4MDAxL3YyL2NvbS9jb25maWdzZXJ2ZXIvIgogICAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICAgICAibmFtZSI6ICJMQU5ESU5HWk9ORSIsCiAgICAgICAgICAgICAgICAgICAgInZhbHVlIjogImRldiIKICAgICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAgICAgIm5hbWUiOiAiU0VSVklDRUJVSUxESUQiLAogICAgICAgICAgICAgICAgICAgICJ2YWx1ZSI6ICIyMzAxMTctMTEwNzEyLTljMjhmNmEiCiAgICAgICAgICAgICAgICB9LAogICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgICJuYW1lIjogIlBPUlQiLAogICAgICAgICAgICAgICAgICAgICJ2YWx1ZSI6ICI4MDgwIgogICAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICAgICAibmFtZSI6ICJTRUNSRVRTTUFOQUdFUlNFUlZJQ0VVUkwiLAogICAgICAgICAgICAgICAgICAgICJ2YWx1ZSI6ICJodHRwczovL3ZhdWx0c3ZjLnVzZWFzdDEuMXBsYXRmb3Jtbm9ucHJvZC5hd3N3dWludHJhbmV0Lm5ldDo4MDA1L3YyL2NvbS9zZWNyZXRzbWFuYWdlci9zZWNyZXRzIgogICAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICAgICAibmFtZSI6ICJBV1NSRUdJT04iLAogICAgICAgICAgICAgICAgICAgICJ2YWx1ZSI6ICJ1cy1lYXN0LTEiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0sCiAgICAgICAgICAgICJtb3VudFBvaW50cyI6IFsKICAgICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICAgICAic291cmNlVm9sdW1lIjogInYwIiwKICAgICAgICAgICAgICAgICAgICAiY29udGFpbmVyUGF0aCI6ICIvdmFyL2dlbWFsdG8iCiAgICAgICAgICAgICAgICB9LAogICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgICJzb3VyY2VWb2x1bWUiOiAidjEiLAogICAgICAgICAgICAgICAgICAgICJjb250YWluZXJQYXRoIjogIi92YXIvbXNrIgogICAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICAgICAic291cmNlVm9sdW1lIjogInYyIiwKICAgICAgICAgICAgICAgICAgICAiY29udGFpbmVyUGF0aCI6ICIvdmFyL3NzbCIKICAgICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAgICAgInNvdXJjZVZvbHVtZSI6ICJ2MyIsCiAgICAgICAgICAgICAgICAgICAgImNvbnRhaW5lclBhdGgiOiAiL3Zhci9wYXRoNCIKICAgICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAgICAgInNvdXJjZVZvbHVtZSI6ICJ2NCIsCiAgICAgICAgICAgICAgICAgICAgImNvbnRhaW5lclBhdGgiOiAiL3Zhci91bnVzZWQiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0sCiAgICAgICAgICAgICJkb2NrZXJMYWJlbHMiOiB7InNwaW5uYWtlci5kZXRhaWwiOiAiV0FOVi1TQU4tMDEtMC1lY3Mtc2VydmljZS13ZWJkZW1vLXYxIiwgInNwaW5uYWtlci5zZXJ2ZXJncm91cCI6ICJhcHBkZW1vc2FtcGxlcy0tV0FOVi1TQU4tMDEtMC1lY3Mtc2VydmljZS13ZWJkZW1vLXYxLXYwMDAifSwKICAgICAgICAgICAgImxvZ0NvbmZpZ3VyYXRpb24iOiB7CiAgICAgICAgICAgICAgICAibG9nRHJpdmVyIjogImF3c2xvZ3MiLAogICAgICAgICAgICAgICAgIm9wdGlvbnMiOiB7CiAgICAgICAgICAgICAgICAgICAgImF3c2xvZ3MtZ3JvdXAiOiAiL2F3cy9lY3MvV0FOVi1TQU4tMDEtMC1lY3MtY29udGFpbmVyLXdlYnNvY2tldC1mZy1kZXYtd2ViZGVtby12MSIsCiAgICAgICAgICAgICAgICAgICAgImF3c2xvZ3MtcmVnaW9uIjogInVzLWVhc3QtMSIsCiAgICAgICAgICAgICAgICAgICAgImF3c2xvZ3Mtc3RyZWFtLXByZWZpeCI6ICJlY3MiCiAgICAgICAgICAgICAgICB9LAogICAgICAgICAgICAgICAgInNlY3JldE9wdGlvbnMiOiBbXQogICAgICAgICAgICB9LAogICAgICAgICAgICAic3lzdGVtQ29udHJvbHMiOiBbXQogICAgICAgIH0KICAgIF0sCiAgICAiZmFtaWx5IjogIldBTlYtU0FOLTAxLTAtZWNzLWNvbnRhaW5lci13ZWJzb2NrZXQtZmctZGV2LXdlYmRlbW8tdjEiLAogICAgInRhc2tSb2xlQXJuIjogImFybjphd3M6aWFtOjoyNzE1Mzk4NTA3NjY6cm9sZS9TTC1ST0wtV0FOVi1TQU4tMC10YXNrRGVmaW5pdGlvblJvbGUtd2ViZGVtby12MSIsCiAgICAiZXhlY3V0aW9uUm9sZUFybiI6ICJhcm46YXdzOmlhbTo6MjcxNTM5ODUwNzY2OnJvbGUvU0wtUk9MLVdBTlYtU0FOLTAtZXhlY1JvbGVGb3JGYXJnYXRlLXdlYmRlbW8tdjEiLAogICAgIm5ldHdvcmtNb2RlIjogImF3c3ZwYyIsCiAgICAidm9sdW1lcyI6IFsKICAgICAgICB7CiAgICAgICAgICAgICJuYW1lIjogInY0IiwKICAgICAgICAgICAgImhvc3QiOiB7fQogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgICAibmFtZSI6ICJ2MyIsCiAgICAgICAgICAgICJob3N0Ijoge30KICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgIm5hbWUiOiAidjIiLAogICAgICAgICAgICAiaG9zdCI6IHt9CiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAgICJuYW1lIjogInYwIiwKICAgICAgICAgICAgImhvc3QiOiB7fQogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgICAibmFtZSI6ICJ2MSIsCiAgICAgICAgICAgICJob3N0Ijoge30KICAgICAgICB9CiAgICBdLAogICAgInJlcXVpcmVzQ29tcGF0aWJpbGl0aWVzIjogWwogICAgICAgICJGQVJHQVRFIgogICAgXSwKICAgICJjcHUiOiAiMTAyNCIsCiAgICAibWVtb3J5IjogIjIwNDgiLAogICAgInRhZ3MiOiBbCiAgICAgICAgewogICAgICAgICAgICAia2V5IjogIkFwcGxpY2F0aW9uTmFtZSIsCiAgICAgICAgICAgICJ2YWx1ZSI6ICJDbG91ZEVuZ2luZWVyaW5nIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgICAia2V5IjogIkFwcGxpY2F0aW9uT3duZXIiLAogICAgICAgICAgICAidmFsdWUiOiAiTWFudS5TdXJlc2hAd3UuY29tIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgICAia2V5IjogIlByb3Zpc2lvbmluZ1Rvb2wiLAogICAgICAgICAgICAidmFsdWUiOiAiRW52MCIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgImtleSI6ICJDb3N0Q2VudGVyIiwKICAgICAgICAgICAgInZhbHVlIjogIjE0NTgiCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAgICJrZXkiOiAiQnVzaW5lc3NHcm91cCIsCiAgICAgICAgICAgICJ2YWx1ZSI6ICJTaGFyZWQgU2VydmljZXMiCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAgICJrZXkiOiAiZW52MF9wcm9qZWN0X2lkIiwKICAgICAgICAgICAgInZhbHVlIjogImMzZDhhNGY4LThjYjctNGMxYy1iNmIxLTJjMDI4ZTBmMmVlYSIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgImtleSI6ICJBcHBsaWNhdGlvbkFyY2hpdGVjdCIsCiAgICAgICAgICAgICJ2YWx1ZSI6ICJNYW51LlN1cmVzaEB3dS5jb20iCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAgICJrZXkiOiAiSWFDIiwKICAgICAgICAgICAgInZhbHVlIjogIlRlcnJhZm9ybSIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgImtleSI6ICJTdXBwb3J0Q29udGFjdCIsCiAgICAgICAgICAgICJ2YWx1ZSI6ICJpb2NfY2xvdWRlbmdpbmVlcmluZ0B3dS5jb20iCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAgICJrZXkiOiAiQXBwbGljYXRpb25Db2RlIiwKICAgICAgICAgICAgInZhbHVlIjogIkNMRSIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgImtleSI6ICJCdXNpbmVzc093bmVyIiwKICAgICAgICAgICAgInZhbHVlIjogInRyb3kubGlsbGVob2ZmQHdlc3Rlcm51bmlvbi5jb20iCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAgICJrZXkiOiAiZW52MF9lbnZpcm9ubWVudF9pZCIsCiAgICAgICAgICAgICJ2YWx1ZSI6ICIzNzM3YTMzMy1iMzE2LTRhNjctYjY0Ni03YWZhNWZlMTZhYjciCiAgICAgICAgfQogICAgXQp9",
+              "type": "embedded/base64"
+            }
+          },
+          "useDefaultCapacityProviders": true,
+          "useSourceCapacity": true,
+          "useTaskDefinitionArtifact": true
+        }
+      ],
+      "name": "Deploy",
+      "refId": "1",
+      "requisiteStageRefIds": [
+        "2"
+      ],
+      "type": "deploy"
+    },
+    {
+      "cloudProvider": "ecs",
+      "cloudProviderType": "ecs",
+      "imageLabelOrSha": "jfrog-sandbox.wureachnonprod.awswuintranet.net/sample-docker-prod/nginx:latest",
+      "name": "Find Image from Tags",
+      "refId": "2",
+      "requisiteStageRefIds": [],
+      "type": "findImageFromTags"
+    }
+  ],
+  "triggers": [],
+  "updateTs": "1718301022746"
+}
