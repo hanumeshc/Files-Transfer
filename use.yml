@@ -1,3 +1,36 @@
+message-broker:
+  endpoint:
+    name: rabbitmq     #Currently support rabbitmq only
+  username: rabbitmq         #rabbitmq username to connect
+  password: Networks123      #rabbitmq password to connect
+  host: rabbitmq-service     #rabbitmq endpoint to connect
+  port: 5672                 #rabbitmq port to connect
+spinnaker:
+  name: wu-oes-sandbox       #Should be same as account name given in spinnaker setup
+  extensibility:
+    plugins:
+      Opsmx.EchoEventPlugin:
+        enabled: true
+        version: 1.0.1
+        config: null
+rest:
+  enabled: true
+  endpoints:
+  - wrap: true
+    url: "http://ssd-sbx.wureachnonprod.awswuintranet.net/ssdservice/v1/spinnakerevents"
+    eventName: preview-saas-ssd
+    flatten: true
+    headers:
+      X-Opsmx-Auth: "MY-DYN-GENERATED-JWT-HERE"
+ssd:
+  name: preview-saas-ssd
+  enable: false
+
+
+
+
+  
+
 jfrog-sandbox.wureachnonprod.awswuintranet.net/hub-docker-prod/hub/awx_ee_sandbox_ssd:latest
 quay.io/opsmxpublic/docker-swarm:8a93f07-401
 
