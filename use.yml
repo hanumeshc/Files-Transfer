@@ -1,3 +1,6 @@
+curl $ENDPOINT -X POST -H "content-type: application/json" -d "{ }"
+
+
 message-broker:
   endpoint:
     name: rabbitmq     #Currently support rabbitmq only
