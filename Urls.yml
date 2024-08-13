@@ -1,3 +1,4 @@
 https://oes-sbx.wureachnonprod.awswuintranet.net/ui/application
 https://spinnaker-sbx.wureachnonprod.awswuintranet.net/#/applications/appdemosamples/executions
 http://ssd-sbx.wureachnonprod.awswuintranet.net/ssdservice/v1/spinnakerevents
+export KUBECONFIG=/home/ubuntu/.kube/WANV-SAN-0-EKS-CL-Sandbox-Core-Tools-001
