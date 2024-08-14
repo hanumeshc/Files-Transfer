@@ -1,4 +1,7 @@
- Could not create application: OpsMx Policy Error(s) - {"AppDeletePolicy2":{"code":"internal_error","message":"error(s) occurred while evaluating query","errors":[{"code":"eval_conflict_error","message":"complete rules must not produce multiple outputs","location":{"file":"AppDeletePolicy2","row":8,"col":1}}]}}
+includeAllGroupsForAdminEnabled: true
+
+
+Could not create application: OpsMx Policy Error(s) - {"AppDeletePolicy2":{"code":"internal_error","message":"error(s) occurred while evaluating query","errors":[{"code":"eval_conflict_error","message":"complete rules must not produce multiple outputs","location":{"file":"AppDeletePolicy2","row":8,"col":1}}]}}
 
 
 # Unauthorized users should not be able to Edit/Save an existing spinnaker application which is already created
