@@ -1,3 +1,34 @@
+sql:
+  enabled: true
+  taskRepository:
+    enabled: true
+  agent:
+    max-concurrent-agents: 3000
+    zombie-threshold-ms: 3600000
+    poll:
+      timeout-seconds: 600
+      interval-seconds: 300
+  cache:
+    enabled: true
+    readBatchSize: 1000
+    writeBatchSize: 500
+  scheduler:
+    enabled: true
+redis:
+  enabled: false
+  cache:
+    enabled: false
+  scheduler:
+    enabled: false
+  taskRepository:
+    enabled: false
+
+cache-sharding:
+  enabled: true
+okHttpClient:
+  readTimeoutMs: 59000
+  connectTimeoutMs: 59000
+
 
 https://oes-sbx.wureachnonprod.awswuintranet.net/gate/platformservice/v6/users/Hanumesh.Kumar@wu.com/usergroups
 includeAllGroupsForAdminEnabled: true
