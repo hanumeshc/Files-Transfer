@@ -1,3 +1,7 @@
+
+quay.io/opsmxpublic/ubi8-oes-orca:20240808-96
+
+
 # Unauthorized users should not be able to create or update or delete spinnaker applications.
 # Authorised user groups should be saved in "allowed_user_groups" array
 
