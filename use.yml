@@ -1,3 +1,24 @@
+package opsmx.spinnaker.authorization
+
+allowed_user_groups = ["ninjateam", "admin"]
+
+restricted_tasks = ["updateApp", "createApp", "deleteApp"]
+
+current_user_roles = input.app.job[0].application.userDetails.groups
+accepted_roles = {role | role := current_user_roles[_]; role in allowed_user_groups}
+
+deny["User does not have permission to perform this operation"] {
+  count(accepted_roles) == 0
+  not appHasWritePermissions
+  input.app.job[_].type in restricted_tasks
+}
+
+appHasWritePermissions {
+  count(input.app.job[0].application.permissions.WRITE) > 0
+}
+
+
+
 auth.permissions.provider.pipeline: aggregate
 auth.permissions.source.pipeline.prefix:
   enabled: true
