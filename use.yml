@@ -1,3 +1,33 @@
+package opsmx.spinnaker.authorization
+import future.keywords.in
+
+allowed_user_groups = ["ninjateam", "admin"]
+restricted_tasks = ["updateApp", "createApp", "deleteApp"]
+
+current_user_roles = input.app.job[0].application.userDetails.groups
+
+accepted_roles_exists {
+  some i
+  current_user_roles[i] in allowed_user_groups
+}
+
+restricted_task_found {
+  input.app.job[_].type in restricted_tasks
+}
+
+deny["User does not have permission to perform this operation"] {
+  not accepted_roles_exists
+  not appHasWritePermissions
+  restricted_task_found
+}
+
+appHasWritePermissions {
+  count(input.app.job[0].application.permissions.WRITE) > 0
+}
+
+
+==============
+
 # Unauthorized users should not be able to create or update or delete spinnaker applications.
 # Authorised user groups should be saved in "allowed_user_groups" array
 
