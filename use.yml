@@ -5,7 +5,7 @@ allowed_user_groups = ["ninjateam", "admin"]
 restricted_tasks = ["updateApp", "createApp", "deleteApp"]
 
 current_user_roles = input.app.job[0].application.userDetails.groups
-accepted_roles = {role | role := current_user_roles[_]; role in allowed_user_groups}
+accepted_roles = {role | role = current_user_roles[_]; role in allowed_user_groups}
 
 deny["User does not have permission to perform this operation"] {
   count(accepted_roles) == 0
