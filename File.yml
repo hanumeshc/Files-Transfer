@@ -1,4 +1,105 @@
+------------------
+prometheus
 
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"prometheus","chart":"prometheus-11.16.2","component":"server","heritage":"Helm","release":"oes-sandbox"},"name":"oes-sandbox-prometheus-server","namespace":"oes"},"spec":{"ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":9090}],"selector":{"app":"prometheus","component":"server","release":"oes-sandbox"},"sessionAffinity":"None","type":"ClusterIP"}}
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+  creationTimestamp: "2024-07-08T14:21:41Z"
+  finalizers:
+  - service.kubernetes.io/load-balancer-cleanup
+  labels:
+    app: prometheus
+    chart: prometheus-11.16.2
+    component: server
+    heritage: Helm
+    release: oes-sandbox
+  name: oes-sandbox-prometheus-server
+  namespace: oes
+  resourceVersion: "325103136"
+  uid: db385478-7951-41eb-9750-421376426193
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 172.20.177.125
+  clusterIPs:
+  - 172.20.177.125
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    nodePort: 30214
+    port: 80
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: prometheus
+    component: server
+    release: oes-sandbox
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - hostname: internal-adb385478795141eb975042137642619-43859817.us-east-1.elb.amazonaws.com
+
+
+
+------------------
+grafana
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/instance":"oes-sandbox","app.kubernetes.io/managed-by":"Helm","app.kubernetes.io/name":"grafana","app.kubernetes.io/version":"10.2.2","helm.sh/chart":"grafana-7.0.19"},"name":"grafana","namespace":"oes"},"spec":{"ports":[{"name":"service","port":3000,"protocol":"TCP","targetPort":3000}],"selector":{"app.kubernetes.io/instance":"oes-sandbox","app.kubernetes.io/name":"grafana"},"type":"ClusterIP"}}
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+  creationTimestamp: "2024-07-08T14:21:40Z"
+  finalizers:
+  - service.kubernetes.io/load-balancer-cleanup
+  labels:
+    app.kubernetes.io/instance: oes-sandbox
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/version: 10.2.2
+    helm.sh/chart: grafana-7.0.19
+  name: grafana
+  namespace: oes
+  resourceVersion: "325100217"
+  uid: dfe10206-b5b1-48ff-b1b6-821845a1c0c3
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 172.20.194.153
+  clusterIPs:
+  - 172.20.194.153
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: service
+    nodePort: 32132
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app.kubernetes.io/instance: oes-sandbox
+    app.kubernetes.io/name: grafana
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - hostname: internal-adfe10206b5b148ffb1b6821845a1c0c-265330572.us-east-1.elb.amazonaws.com
+
+-----------------
 quay.io/opsmxpublic/ubi8-oes-gate:7eafeaa5-37
 
 
