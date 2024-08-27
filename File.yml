@@ -1,3 +1,21 @@
+Hi Narender Potla,
+
+I have created a pipeline which will add manual judgment stage before the Deploy stage in a target pipeline (the pipeline we wanted to add the stage)
+
+Usecase : Pipeline uses spincli to get the existing pipeline json, looks for the deploy stage and updates the pipeline with manual judgment stage before the deploy stage.
+
+addManualJudgementStage- This Pipeline will creates x509certs secret, get the pipeline json through spincli, verify and updates the json with manual judgement stage and saves
+test-1- This is the target pipeline, which have Deploy stage (this pipeline will get updated with manual judgement stage)
+
+
+Please find the below pipeline and test
+https://spinnaker-sbx.wureachnonprod.awswuintranet.net/#/applications/appdemosamples/executions?pipeline=addManualJudgementStage,test-1
+
+
+Note: Marking this ticket as resolved, please re-open incase any additional information needed on the same.
+
+
+
 ------------------
 prometheus
 
