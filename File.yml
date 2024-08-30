@@ -1,3 +1,9 @@
+quay.io/opsmxpublic/ssd-ui:2024-05-02
+quay.io/opsmxpublic/pgchecker:v1
+quay.io/opsmxpublic/token-machine:2024-04-00
+quay.io/opsmxpublic/tool-chain:2024-05-00
+
+
 Hi Narender Potla,
 
 I have created a pipeline which will add manual judgment stage before the Deploy stage in a target pipeline (the pipeline we wanted to add the stage)
