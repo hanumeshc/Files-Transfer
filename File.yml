@@ -1,3 +1,21 @@
+Firewall payload
+
+{
+  "account": "ecs-ssd",
+  "appName": "${execution.application}",
+  "clusterName": "ecs-ssd",
+  "image": "docker.io/${execution. stages[2]. context.propertyFileContents.Image}",
+  "teamName": "default"
+}
+
+Data collection payload
+{
+  "artifactName": "docker.io/${execution. stages[2]. context.propertyFileContents.Image.split(':')[0]}",
+  "artifactTag": "${execution. stages[2]. context.propertyFileContents.Image.split(':')[1]}",
+  "organizationName": "opsmx"
+}
+
+
 quay.io/opsmxpublic/ssd-opa:2024-05-03
 quay.io/opsmxpublic/supplychain-api:2024-05-03
 
