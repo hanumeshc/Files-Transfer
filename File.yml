@@ -1,3 +1,5 @@
+jfrog-sandbox.wureachnonprod.awswuintranet.net/sample-docker-prod/nginx:latest
+
 │ 2024/09/12 10:16:41 Yay!!Parse Token WITH signature verification worked!!                                                                                                                                                                      │
 │ 10.11.73.173 - - [12/Sep/2024:10:16:38 +0000] "POST /api/v1/ssdOpaService HTTP/1.1" 400 377                                                                                                                                                    │
 │ 10.11.74.54 - - [12/Sep/2024:10:16:53 +0000] "GET /health HTTP/1.1" 200 16                 
