@@ -1,27 +1,28 @@
-auditClient:
-  image:
-    tag: isd-spin-2024.06.00-202407180748
-audit:
-  image:
-    tag: isd-spin-2024.06.00-202407180744
-autopilot:
-  image:
-    tag: isd-spin-2024.06.00-202408281051
-platform:
-  image:
-    tag: isd-spin-2024.06.00-202408160626
-dashboard:
-  image:
-    tag: isd-spin-2024.06.00-202407121256
-sapor:
-  image:
-    tag: isd-spin-2024.06.00-202407191150
-ui:
-  image:
-    tag: isd-spin-2024.06.00-202408281057
-datascience:
-  image:
-    tag: isd-spin-2024.06.00-202407121255
-visibility:
-  image:
-    tag: isd-spin-2024.06.00-202407121318
+spring:
+  security:
+    saml2:
+      enabled: false
+      registration-id: SSO
+      relyingparty:
+        registration:
+          SSO: 
+            entity-id: spin-wu
+            acs:
+              location: https://spin-wu.ryzon7-isd40.opsmx.org/gate/saml/SSO 
+            assertingparty:
+              metadata-uri: https://dev-03046601.okta.com/app/exkjz18pkkJHwRDRx5d7/sso/saml/metadata
+            decryption: 
+              credentials:
+              - private-key-location: file:/opt/saml/certs/key.pem  
+                certificate-location: file:/opt/saml/certs/cert.pem
+              singlesignon.sign-request: true  
+      user-attribute-mapping:
+        firstName: firstName
+        lastName: lastName
+        roles:
+          attributeName: memberOf 
+          sortRoles: true
+          forceLowercaseRoles: true
+          rolesDelimiter: ","
+        email: Email
+      signatureDigest: SHA256
