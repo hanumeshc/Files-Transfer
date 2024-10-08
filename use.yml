@@ -1,38 +1,27 @@
-gate:
+auditClient:
   image:
-    tag: isd-spin-2024.06.00-202408190706  
-  config:
-    #####################################################
-    # SAML AUthentication
-    #####################################################
-    # openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out cert.pem
-    # kubectl create secret generic samlcerts --from-file key.pem --from-file cert.pem -n namespace
-    spring:
-      security:
-        saml2:
-          enabled: true
-          registration-id: SSO #change this to the application name in OKTA
-          relyingparty:
-            registration:
-              SSO:   #change this to the application name in OKTA
-                entity-id: oes-wu #change this to the Okta SP entity id
-                acs:
-                  location: https://isd-wu.ryzon7-isd40.opsmx.org/saml/SSO  #Update ISD URL here
-                assertingparty:
-                  metadata-uri: https://dev-03046601.okta.com/app/exkjz12l4hY5IcbO45d7/sso/saml/metadata  #Update metadata URL here 
-                decryption: 
-                  credentials:
-                    - private-key-location: file:/opt/saml/certs/key.pem  
-                      certificate-location: file:/opt/saml/certs/cert.pem
-                  singlesignon.sign-request: true
-          user-attribute-mapping:
-            firstName: firstName
-            lastName: lastName
-            roles:
-              attributeName: memberOf  # Update attributeName here
-              sortRoles: true
-              forceLowercaseRoles: true
-              rolesDelimiter: ","
-            email: email
-          signatureDigest: SHA256
-          userSource: gate
+    tag: isd-spin-2024.06.00-202407180748
+audit:
+  image:
+    tag: isd-spin-2024.06.00-202407180744
+autopilot:
+  image:
+    tag: isd-spin-2024.06.00-202408281051
+platform:
+  image:
+    tag: isd-spin-2024.06.00-202408160626
+dashboard:
+  image:
+    tag: isd-spin-2024.06.00-202407121256
+sapor:
+  image:
+    tag: isd-spin-2024.06.00-202407191150
+ui:
+  image:
+    tag: isd-spin-2024.06.00-202408281057
+datascience:
+  image:
+    tag: isd-spin-2024.06.00-202407121255
+visibility:
+  image:
+    tag: isd-spin-2024.06.00-202407121318
