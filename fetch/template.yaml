@@ -1,0 +1,43 @@
+apiVersion: backstage.io/v1beta3
+kind: Template
+metadata:
+  name: example-fetch-template
+  description: A template to demonstrate fetching files and directories.
+  tags:
+    - example
+spec:
+  type: service
+  parameters:
+    - title: Fetch Example
+      required:
+        - urlDirectory
+        - urlFile
+      properties:
+        urlDirectory:
+          type: string
+          title: Directory URL
+          description: The URL or relative path to the directory to fetch.
+        urlFile:
+          type: string
+          title: File URL
+          description: The URL or relative path to the file to fetch.
+  steps:
+    - action: fetch:plain
+      id: fetch-plain-directory
+      name: Fetch Plain Directory
+      input:
+        url: '{{ parameters.urlDirectory }}'  # Using parameter for directory URL
+        targetPath: 'fetched-directory'  # Target path for the fetched directory
+
+    - action: fetch:plain:file
+      id: fetch-file
+      name: Fetch Single File
+      input:
+        url: '{{ parameters.urlFile }}'  # Using parameter for file URL
+        targetPath: 'fetched-file.txt'  # Target path for the fetched file
+
+    - action: fetch:template
+      id: process-files
+      name: Process Fetched Files
+      input:
+        command: 'echo "Files have been fetched successfully!"'
