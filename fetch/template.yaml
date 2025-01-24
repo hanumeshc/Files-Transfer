@@ -6,8 +6,6 @@ metadata:
   description: Demonstrates fetch:plain, fetch:plain:file, and fetch:template
   tags:
     - fetch
-    - backstage
-    - template
 spec:
   owner: your-team@example.com
   type: service
@@ -20,29 +18,33 @@ spec:
         description:
           title: Description
           type: string
-        gitRepoUrl:
-          title: Git Repository URL
+        urlFile:
+          title: File Path in Repo (e.g., path/to/file.txt)
           type: string
+        repoUrl:
+          title: Repository URL
+          type: string
+          default: https://github.com/hanumeshc/Files-Transfer
   steps:
     - id: fetch-example
       name: Fetch Example
       action: fetch:plain
       input:
-        url: https://raw.githubusercontent.com/backstage/backstage/master/README.md
+        url: https://raw.githubusercontent.com/hanumeshc/Files-Transfer/main/README.md
         outputPath: ./README.md
 
     - id: fetch-single-file
       name: Fetch Single File
       action: fetch:plain:file
       input:
-        url: https://raw.githubusercontent.com/backstage/backstage/master/README.md
-        targetPath: ./single-file-readme.md
+        url: ${{ parameters.repoUrl }}/contents/${{ parameters.urlFile }}?ref=main
+        targetPath: ./single-file-fetched.txt
 
     - id: fetch-template-example
       name: Fetch and Process Template
       action: fetch:template
       input:
-        url: https://github.com/backstage/backstage/archive/refs/heads/master.zip
+        url: https://github.com/hanumeshc/Files-Transfer/archive/refs/heads/main.zip
         values:
           projectName: ${{ parameters.name }}
           description: ${{ parameters.description }}
@@ -56,11 +58,11 @@ spec:
         contents: |
           Project Name: ${{ parameters.name }}
           Description: ${{ parameters.description }}
-          README.md and template have been fetched successfully!
+          Fetched single file: ${{ parameters.urlFile }}
 
   output:
     links:
       - title: Repository
-        url: ${{ parameters.gitRepoUrl }}
+        url: ${{ parameters.repoUrl }}
       - title: Project Folder
         url: ./project
