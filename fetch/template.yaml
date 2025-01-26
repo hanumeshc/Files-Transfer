@@ -1,68 +1,43 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: fetch-demo-template
-  title: Fetch Example Template
-  description: Demonstrates fetch:plain, fetch:plain:file, and fetch:template
+  name: example-fetch-template
+  description: A template to demonstrate fetching files and directories.
   tags:
-    - fetch
+    - example
 spec:
-  owner: your-team@example.com
   type: service
   parameters:
-    - title: Project Details
+    - title: Fetch Example
+      required:
+        - urlDirectory
+        - urlFile
       properties:
-        name:
-          title: Project Name
+        urlDirectory:
           type: string
-        description:
-          title: Description
-          type: string
+          title: Directory URL
+          description: The URL or relative path to the directory to fetch.
         urlFile:
-          title: File Path in Repo (e.g., path/to/file.txt)
           type: string
-        repoUrl:
-          title: Repository URL
-          type: string
-          default: https://github.com/hanumeshc/Files-Transfer
+          title: File URL
+          description: The URL or relative path to the file to fetch.
   steps:
-    - id: fetch-example
-      name: Fetch Example
-      action: fetch:plain
+    - action: fetch:plain
+      id: fetch-plain-directory
+      name: Fetch Plain Directory
       input:
-        url: https://raw.githubusercontent.com/hanumeshc/Files-Transfer/main/README.md
-        outputPath: ./README.md
+        url: '{{ parameters.urlDirectory }}'  # Using parameter for directory URL
+        targetPath: 'fetched-directory'  # Target path for the fetched directory
 
-    - id: fetch-single-file
+    - action: fetch:plain:file
+      id: fetch-file
       name: Fetch Single File
-      action: fetch:plain:file
       input:
-        url: ${{ parameters.repoUrl }}/contents/${{ parameters.urlFile }}?ref=main
-        targetPath: ./single-file-fetched.txt
+        url: '{{ parameters.urlFile }}'  # Using parameter for file URL
+        targetPath: 'fetched-file.txt'  # Target path for the fetched file
 
-    - id: fetch-template-example
-      name: Fetch and Process Template
-      action: fetch:template
+    - action: run
+      id: announce-success
+      name: Announce Success
       input:
-        url: https://github.com/hanumeshc/Files-Transfer/archive/refs/heads/main.zip
-        values:
-          projectName: ${{ parameters.name }}
-          description: ${{ parameters.description }}
-        outputPath: ./project
-
-    - id: write-result
-      name: Write Result
-      action: filesystem:write
-      input:
-        path: ./result.txt
-        contents: |
-          Project Name: ${{ parameters.name }}
-          Description: ${{ parameters.description }}
-          Fetched single file: ${{ parameters.urlFile }}
-
-  output:
-    links:
-      - title: Repository
-        url: ${{ parameters.repoUrl }}
-      - title: Project Folder
-        url: ./project
+        command: 'echo "Files have been fetched successfully!"'
