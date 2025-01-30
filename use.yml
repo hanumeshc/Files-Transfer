@@ -1,3 +1,8 @@
+grafana sandbox- https://grafana-sandbox.wureachnonprod.awswuintranet.net/?orgId=1
+prom sandbox- http://internal-adb385478795141eb975042137642619-862126603.us-east-1.elb.amazonaws.com/graph
+isd url green - oes-prd-green.wureachprod.awswuintranet.net
+spinnaker url greeen- spinnaker-prd.wureachprod.awswuintranet.net
+gitlab green url- https://gitlab.wuintranet.net/core-tools/spinnaker/oes-halconfig-prod-green
 
 gitlab-sandbox- https://gitlab.wuintranet.net/core-tools/spinnaker/sandbox/spinnaker-sandbox
 gitlab prod- https://gitlab.wuintranet.net/core-tools/spinnaker/oes-halconfig-prod
