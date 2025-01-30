@@ -1,3 +1,191 @@
+k8sServiceType: LoadBalancer
+installRedis: false
+# Global variables can be accessed across all the charts including sub-charts
+global:
+  nodeSelector: 
+    application: spinnaker
+
+  ssl:
+    enabled: false
+
+  certManager:
+    installed: true
+
+  # Common gate for both spin and oes services. Change ONLY if required
+  commonGate:
+    spinnakerRBAC: true  # Set to true if RBAC is enabled in Spinnaker
+
+  ## Set to true to expose oes-ui, oes-gate services over ingress
+  createIngress: false
+
+  ## Set to false only if user uses gitops style and user dont want the repo to be created automatically in github.com
+  githubcreationHook: false
+
+  gitea:
+    enabled: false
+
+  # Spinnaker Deck URL configuration; url overwhich spinnaker deck will be accessed
+  spinDeck:
+    protocol: https
+    host: armory-spinnaker.wureachprod.awswuintranet.net
+    #port: 31464
+
+    ingress:
+      annotations:
+        ingress.kubernetes.io/ssl-redirect: "true"
+        kubernetes.io/ingress.class: nginx
+      tls:
+        secretName: deck-authtls
+    serviceAnnotations:
+      service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+      service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-1:517949891193:certificate/d6eaa2b0-8562-4ba6-99c1-1b9ee848b72d"
+      service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+
+  spinGate:
+    protocol: https
+    host: armory-spinnaker-gate.wureachprod.awswuintranet.net
+    #port: 31465
+
+    ingress:
+      annotations:
+        ingress.kubernetes.io/ssl-redirect: "true"
+        kubernetes.io/ingress.class: nginx
+      tls:
+        secretName: gate-authtls
+    serviceAnnotations:
+      service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+      service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-1:517949891193:certificate/d6eaa2b0-8562-4ba6-99c1-1b9ee848b72d"
+      service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+
+  oesUI:
+    protocol: https
+    host: oes-prd.wureachprod.awswuintranet.net
+    # Use below port when hostname above is an external IP instead of a hostname
+    #port: 31466
+
+    ingress:
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      tls:
+        secretName: oes-ui-authtls
+
+  ## OES-Gate url configuration
+  oesGate:
+    protocol: https
+    host: oes-api-prd.wureachprod.awswuintranet.net
+    
+    ingress:
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      tls:
+        secretName: oes-gate-authtls
+
+  # Set it to false if own LDAP is to be configured
+  installOpenLdap: false
+
+  auth:
+    saml: true
+
+  ldap:
+    enabled: false
+
+  spinnakerUrl: true
+  saporgate:
+    config:
+      username: narender.potla@wu.com       #Name of the valid user in your service provider
+      adminGroups: admin,cldapp-devops-spinnaker-admin    #Name of the valid admin group in your service provider
+      password: encrypted:saporpassword:saporpassword #password for the saporgate
+
+  sapor:
+    config:
+      encrypt:
+        enabled: true
+        key: Q7udUkHPuA3VnNlOtksSgQ
+  ###############################################################################
+  minio:
+    enabled: false
+
+###############################################################################
+db:
+  enabled: false
+  url: jdbc:postgresql://wanv-sap-9-opsmx-oes-ui-001.cluster-cyg9sx5cm1xe.us-east-1.rds.amazonaws.com:5432
+  username: oes
+  password: encrypted:dbpassword:dbpassword
+
+###############################################################################
+gate:
+  config:
+    saml:
+      enabled: true
+      userSource: gate  # Groups will be obtained from SAML
+      keyStore: /opt/spinnaker/saml/oessaml.jks  # The key in this secret must be oessaml.jks
+      keyStorePassword: changeit
+      keyStoreAliasName: saml
+      metadataUrl: /opt/spinnaker/saml/oesmetadata.xml # The key in this secret must be oesmetadata.xml
+      redirectProtocol: https
+      redirectHostname: oes-prd.wureachprod.awswuintranet.net/gate  # OES gate host name
+      redirectBasePath: /
+      issuerId: oesgate
+      jksSecretName: oessamljks
+      metadataSecretName: oesmetadataxml
+
+#####################################################
+# Spinnaker instance configuration
+#####################################################
+spinnaker:
+  autoInstallSampleApps: false   # Set this to FALSE if upgrading
+  # Initialize gitOps style Halyard
+  gitopsHalyard:
+    enabled: true
+    secretName: opsmx-gitops-auth  # No need to change this
+    repo:
+      type: git # git, s3, stash(bitbucket server) use a different sample values file for s3/bitbuck-stash
+      configArgs: "http.sslVerify=false"
+      ## Configure below fields only if repo type is git/stash. Skip to s3 section if type is s3
+      baseUrlHostName: gitlab.wuintranet.net    # Specify the Base FQDN of your repository without the protocol
+      organization: core-tools
+      repository: spinnaker/oes-halconfig-prod
+      halConfigBranch: main # Branch under which halyard config is present under above repository
+      halConfigPath: / #relative path from repository root folder
+      dynamicAccRepository: "spinnaker/oes-halconfig-prod" # Please provide the repo name of the GitOps Dynamic Accounts Directory. Can be same as Hal repo. 
+      dynAccntConfigPath: / #relative path from repository root folder
+      username: s_jenkins_checkout  # Username to authenticate with git/stash repo
+      token: encrypted:gittoken:gittoken  # Token corresponding to above username
+       ## Configure below fields only if repo type is s3
+    # Promote applications and pipelines from one environment to another or take backup
+    pipelinePromotion:  # GitHub only,  Not supportd on S3 or Stash
+      enabled: true
+      type: git  # git, s3, stash
+      organization: gitlab.wuintranet.net  # Also called "project" in some repos
+      repository: spinnaker/oes-pipeline-backup-prod  # bucket name in case of S3
+      rootFolder: pipeline-promotion/
+      baseUrl: gitlab.wuintranet.net  #  "git_url"
+      username: s_jenkins_checkout
+      token: encrypted:gittoken:gittoken
+      branch: main
+      usermail: narender.potla@wu.com
+
+  spinCli:
+    auth:
+      basic:
+        username: narender.potla@wu.com         # Use credentials corresponding to spinCli.gate.endpoint
+        password: encrypted:saporpassword:saporpassword
+
+rabbitmq:
+  username: rabbitmq
+  password: encrypted:rabbitmqpassword:rabbitmqpassword
+#####################################################
+redis:
+  #url: redis://wanv-sap-4-opsmx-spinnaker-sandbox-redis-ec.uf072a.0001.use1.cache.amazonaws.com:6379
+  #password: encrypted:redispassword:redispassword
+  external:
+    host: "wanv-sap-9-opsmx-spinnaker-prod-redis-ec.uf072a.0001.use1.cache.amazonaws.com"
+    port: 6379
+
+forwarder:
+  externalName: oes-controller.wureachprod.awswuintranet.net
+
+
 https://oes-sbx.wureachnonprod.awswuintranet.net/ui/application
 
 https://spinnaker-sbx.wureachnonprod.awswuintranet.net/#/applications
