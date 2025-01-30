@@ -1,3 +1,6 @@
+green instance and prod export command- export KUBECONFIG=~/.kube/WANV-SAP-9-EKS-CD-Tools.config 
+
+
 grafana sandbox- https://grafana-sandbox.wureachnonprod.awswuintranet.net/?orgId=1
 prom sandbox- http://internal-adb385478795141eb975042137642619-862126603.us-east-1.elb.amazonaws.com/graph
 isd url green - oes-prd-green.wureachprod.awswuintranet.net
