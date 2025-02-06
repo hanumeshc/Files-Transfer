@@ -1,3 +1,5 @@
+opsmx-ssd-sbx.wureachprod.awswuintranet.net -- internal-a5a8ad529d3734cd8af71779bf62291e-1093353412.us-east-2.elb.amazonaws.com
+
 command to test conection in ssd
 ==================================
 root@tool-chain-5f9b4bdcdf-mdbfv:/tools# curl --max-time 15 -Is https://api.first.org  | head -2
