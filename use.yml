@@ -1,3 +1,16 @@
+rest:
+  enabled: true
+  endpoints:
+    -
+      wrap: true
+      url: https://ssd-oct.autopilot.opsmx.com/ssdservice/v1/spinnakerevents
+      #headers: {"organization":"opsmx"} ##New-field, name will be what we entered in the setup API
+      headers: {"token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRjMTA3YTc4LTQzNmEtNGYzOS04YWYxLTljMTlmZmYyMTEwOSIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJPcHNNeCIsImF1ZCI6WyJzc2Qub3BzbXguaW8iXSwiZXhwIjoxNzczMTI4NTk0LCJuYmYiOjE3MzkxNzMzOTQsImp0aSI6ImFiY2QxMjM0Iiwic3NkLm9wc214LmlvIjp7InR5cGUiOiJpbnRlZ3JhdGlvbi92MSIsIm9yZ0lEIjoiYjU4NzEzZDYtZmFkYS00MGUyLThkYTUtMjJkZTZkYjZkYzNmIiwidGVhbUlEIjoiZTNmOTk4NmItY2Y0ZS00NGE0LTlhZGMtMTgyMDI3ZGM5NTViIn19.Nh8n9vbHzKDXRBVILwR_Oxg8g80hcOI1icSPQDkRDPZjvBowRXb7mThItWk_5bXXL04Jh_aPX3N2lp0itCGQvHZZLvWZJLCydHRpw3KWICKT_u6y1wfWoMIxW17KK4qaJVFooruqDiW4e3qARCsSpTf2dtOCZj2sdcTAXa8FyZAaM-9of5guY2Fy18yWOk6yY7z5B2VpZM6mITNersAQhsUYv4K8kEYsrzxGF5tLhl-WLBQPKTSAnL2f-pxoHaNveZdzjAhqJgEb41OqFBHTTE90iiJf3X-a0XyBXxQIMIZBm-Pj_Sj-jadyS1sP8_hAHHYTWAptLrZUp_Wjs073tQ"}
+      eventName: preview-saas-ssd
+      flatten: true
+
+
+
 opsmx-ssd-sbx.wureachprod.awswuintranet.net -- internal-a5a8ad529d3734cd8af71779bf62291e-1093353412.us-east-2.elb.amazonaws.com
 
 command to test conection in ssd
